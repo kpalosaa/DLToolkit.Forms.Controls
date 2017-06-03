@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="DLToolkitControlsSamples.TagEntryViewExamplePage"
-		xmlns:dltag="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.TagEntryView">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+			 x:Class="DLToolkitControlsSamples.TagEntryViewExamplePage"
+			 x:Name="TagEntryViewExamplePage"
+			 xmlns:dltag="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.TagEntryView">
 	<ContentPage.Content>
-		<dltag:TagEntryView TagItems="{Binding Items}" TagTappedCommand="{Binding RemoveTagCommand}" TagValidatorFactory="{StaticResource TagValidatorFactory}">
+		<dltag:TagEntryView TagItems="{Binding Items}" TagValidatorFactory="{StaticResource TagValidatorFactory}" Margin="5">
 			<dltag:TagEntryView.TagItemTemplate>
 				<DataTemplate>
 					<Frame BackgroundColor="#2196F3" OutlineColor="Transparent" Padding="10" HasShadow="false">
-						<Label Text="{Binding Name}"/>
+						<StackLayout Orientation="Horizontal">
+							<Label Text="{Binding Name}" VerticalTextAlignment="Center" />
+							<Label Text="X" Margin="5,2,5,2">
+								<Label.GestureRecognizers>
+									<TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveTagCommand, Source={x:Reference Name=TagEntryViewExamplePage}}" CommandParameter="{Binding .}" />
+								</Label.GestureRecognizers>
+							</Label>
+						</StackLayout>
 					</Frame>
 				</DataTemplate>
 			</dltag:TagEntryView.TagItemTemplate>
